@@ -2,13 +2,13 @@ ifeq ($(OMBUILDDIR),)
 $(error OMBUILDDIR variable is not set.)
 endif
 
-OMDEVMSYS=$(shell cygpath $$OMDEV)
-
-ifeq (MINGW32,$(findstring MINGW32,$(shell uname)))
-MINGWBIN = $(OMDEVMSYS)/tools/msys/mingw32/bin
-else # mingw64
-MINGWBIN = $(OMDEVMSYS)/tools/msys/mingw64/bin
+ifndef OMDEV_MSYS
+	@echo You have to set the OMDEV_MSYS variabile pointing to your OMDev package root! Exiting....
+	@echo See OpenModelica/OMCompiler/README.Windows.md
+	ABORT
 endif
+
+MINGWBIN = $(OMDEV_MSYS)/bin
 
 FORTRANDIR = fortran_interface
 
